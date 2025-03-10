@@ -22,9 +22,11 @@ class BaseController extends Controller
             'data'    => $result,
             'message' => $message,
         ];
+        if(auth()->check()){
+            $code = 200;
+        }
 
-
-        return response()->json($response, 200);
+        return response()->json($response, $code);
     }
 
 
@@ -33,7 +35,7 @@ class BaseController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function sendError($error, $errorMessages = [], $code = 404)
+    public function sendError($error, $errorMessages = [], $code = 401)
     {
     	$response = [
             'success' => false,
@@ -45,6 +47,9 @@ class BaseController extends Controller
             $response['data'] = $errorMessages;
         }
 
+        if(auth()->check()){
+            $code = 200;
+        }
 
         return response()->json($response, $code);
     }

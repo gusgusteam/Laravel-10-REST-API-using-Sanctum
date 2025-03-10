@@ -12,6 +12,21 @@ class Authenticate extends Middleware
      */
     protected function redirectTo(Request $request): ?string
     {
-        return $request->expectsJson() ? null : route('login');
+        // Siempre retorna null para evitar redirección.
+        return null;
     }
+
+    /**
+     * Si el usuario no está autenticado, devuelve una respuesta JSON.
+     */
+    protected function unauthenticated($request, array $guards)
+    {
+        // Devuelve una respuesta JSON personalizada en caso de no autenticación
+        return response()->json([
+            'success' => false,
+            'message' => 'No está autenticado. Por favor, inicie sesión.',
+            'error' => 'Unauthenticated',
+        ], 401); // Código 401 para "No autorizado"
+    }
+    
 }

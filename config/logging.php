@@ -63,11 +63,17 @@ return [
             'level' => env('LOG_LEVEL', 'debug'),
         ],
 
+        //'daily' => [
+        //    'driver' => 'daily',
+        //    'path' => storage_path('logs/laravel.log'),
+        //    'level' => env('LOG_LEVEL', 'debug'),
+        //    'days' => 14,
+        //],
         'daily' => [
             'driver' => 'daily',
             'path' => storage_path('logs/laravel.log'),
-            'level' => env('LOG_LEVEL', 'debug'),
-            'days' => 14,
+            'level' => 'debug',
+            'days' => 1, // Número de días que quieres mantener los logs antes de que se borren
         ],
 
         'slack' => [

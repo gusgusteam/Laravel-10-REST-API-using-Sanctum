@@ -15,6 +15,15 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
+           // $table->integer('ci')->unique();
+           // $table->string('paterno');
+           // $table->string('materno');
+           // $table->string('direccion');
+           // $table->date('fechaNacimiento');
+           // $table->tinyInteger('edad');
+           // $table->tinyInteger('estado')->default(1);
+           // $table->tinyInteger('superAdmin')->default(0);
+           $table->boolean('estado')->default(1);
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();

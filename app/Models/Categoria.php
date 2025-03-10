@@ -1,20 +1,21 @@
 <?php
-  
+
 namespace App\Models;
-  
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-  
-class Product extends Model
+
+class Categoria extends Model
 {
     use HasFactory;
-  
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
+
+    protected $table = 'categorias';
+
     protected $fillable = [
-        'name', 'detail'
+        'nombre',
+        'estado'
+    ];
+    protected $casts = [
+        'estado' => 'boolean',
     ];
 }

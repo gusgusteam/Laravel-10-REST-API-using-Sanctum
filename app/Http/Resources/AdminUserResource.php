@@ -5,7 +5,7 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class ProductResource extends JsonResource
+class AdminUserResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -17,9 +17,11 @@ class ProductResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'detail' => $this->detail,
-            'created_at' => $this->created_at->format('d/m/Y'),
-            'updated_at' => $this->updated_at->format('d/m/Y'),
+            'email' => $this->email,
+            'estado' => (bool) $this->estado,
+            'roles' => RoleResource::collection($this->roles), 
+            //'created_at' => $this->created_at->format('Y-m-d H:i:s'),
+            //'updated_at' => $this->updated_at->format('Y-m-d H:i:s'),
         ];
     }
 }
