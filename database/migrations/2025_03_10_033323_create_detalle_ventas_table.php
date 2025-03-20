@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreignId('producto_envase_id')->constrained('producto_envase')->onDelete('cascade');
             $table->decimal('precio_asignado', 10, 2);
             $table->decimal('cantidad', 10, 2);
-            $table->decimal('subtotal', 10, 2);
+            $table->decimal('subtotal', 10, 2)->nullable();
             $table->string('dosis_recomendada')->nullable();
             $table->string('dosis_comercial')->nullable();
             $table->text('observacion')->nullable();

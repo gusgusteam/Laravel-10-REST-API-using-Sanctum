@@ -7,6 +7,7 @@ use App\Http\Requests\Unidad\StoreUnidadRequest;
 use App\Http\Requests\Unidad\UpdateUnidadRequest;
 use App\Http\Resources\UnidadResource;
 use App\Services\UnidadService;
+use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 
 class UnidadController extends Controller
@@ -18,10 +19,15 @@ class UnidadController extends Controller
         $this->unidadService = $unidadService;
     }
 
-    public function index(): JsonResponse
+    public function index(Request $request): JsonResponse
     {
-        $unidades = $this->unidadService->getAll();
-        return response()->json(UnidadResource::collection($unidades), 200);
+        $filters = $request->only(['nombre', 'nombre_corto']);
+        $perPage = $request->input('per_page', 10);
+        $unidades = $this->unidadService->getAllPaginated($filters, $perPage);
+        //$unidades = $this->unidadService->getAll();
+        // Retorna la respuesta en formato JSON
+        return response()->json($unidades, 200);
+        //return response()->json(UnidadResource::collection($unidades), 200);
     }
 
     public function store(StoreUnidadRequest $request): JsonResponse

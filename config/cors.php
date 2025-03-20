@@ -40,8 +40,8 @@ return [
     'allowed_methods' => ['*'],
 
     // Cambiar '*' por el dominio específico de tu aplicación front-end
-    //'allowed_origins' => ['http://localhost:4200'],
-    'allowed_origins' => ['http://localhost', 'http://localhost:3000', 'http://127.0.0.1:8000'],
+    'allowed_origins' => ['http://localhost:4200'],
+    //'allowed_origins' => ['http://localhost', 'http://localhost:3000', 'http://127.0.0.1:8000'],
 
 
     'allowed_origins_patterns' => [],

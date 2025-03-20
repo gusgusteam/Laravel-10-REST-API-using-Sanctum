@@ -14,7 +14,7 @@ class StoreDetalleVentaRequest extends FormRequest
     {
         return [
             'nota_venta_id' => 'required|exists:nota_ventas,id',
-            'producto_envase_id' => 'required|exists:producto_envases,id',
+            'producto_envase_id' => 'required|exists:producto_envase,id',
             'precio_asignado' => 'required|numeric|min:0',
             'cantidad' => 'required|integer|min:1',
             //'subtotal' => 'required|numeric|min:0',

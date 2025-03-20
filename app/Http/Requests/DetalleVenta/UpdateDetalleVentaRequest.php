@@ -11,7 +11,7 @@ class UpdateDetalleVentaRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,14 +22,14 @@ class UpdateDetalleVentaRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'nota_venta_id' => 'required|exists:nota_ventas,id',
-            'producto_envase_id' => 'required|exists:producto_envases,id',
-            'precio_asignado' => 'required|numeric|min:0',
-            'cantidad' => 'required|integer|min:1',
-            'subtotal' => 'required|numeric|min:0',
-            'dosis_recomendada' => 'nullable|string',
-            'dosis_comercial' => 'nullable|string',
-            'observacion' => 'nullable|string',
+            //'nota_venta_id' => 'required|exists:nota_ventas,id',
+            //'producto_envase_id' => 'required|exists:producto_envase,id',
+            //'precio_asignado' => 'required|numeric|min:0',
+            'cantidad' => 'required|integer',
+            //'subtotal' => 'required|numeric|min:0',
+            //'dosis_recomendada' => 'nullable|string',
+            //'dosis_comercial' => 'nullable|string',
+            //'observacion' => 'nullable|string',
         ];
     }
 

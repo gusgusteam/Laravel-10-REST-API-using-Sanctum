@@ -27,29 +27,21 @@ class NotaVentaService
 
     public function create($data)
     {
-        //return DB::transaction(function () use ($data) {
-            return $this->notaVentaRepository->create($data);
-        //});
+        return $this->notaVentaRepository->create($data);
     }
 
     public function update($id, array $data)
     {
-        return DB::transaction(function () use ($id, $data) {
-            return $this->notaVentaRepository->update($id, $data);
-        });
+        return $this->notaVentaRepository->update($id, $data);
     }
 
-    public function destroy($id)
+    public function firma_completar($id)
     {
-        return DB::transaction(function () use ($id) {
-            return $this->notaVentaRepository->destroy($id);
-        });
+        return $this->notaVentaRepository->completar_firma($id);
     }
 
-    public function restore($id)
+    public function anular($data)
     {
-        return DB::transaction(function () use ($id) {
-            return $this->notaVentaRepository->restore($id);
-        });
+        return $this->notaVentaRepository->anular_nota($data);
     }
 }

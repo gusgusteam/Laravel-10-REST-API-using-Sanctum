@@ -19,12 +19,16 @@ return new class extends Migration
             $table->foreignId('gestion_id')->constrained('gestiones')->onDelete('cascade');
             $table->foreignId('cultivo_id')->constrained('cultivos')->onDelete('cascade');
             $table->string('codigo_factura')->unique();
+            $table->string('codigo_alterno')->nullable();
+            $table->boolean('nota_alterna')->default(0);
+            $table->string('motivo')->nullable('sin motivo');
             $table->date('fecha');
             $table->decimal('monto_total', 10, 2)->default(0);
             $table->string('lugar')->nullable();
             $table->string('recibido')->nullable();
             $table->boolean('venta_credito')->default(0);
             $table->boolean('estado')->default(0);
+            $table->boolean('firma')->default(0);
             $table->timestamps();
         });
     }

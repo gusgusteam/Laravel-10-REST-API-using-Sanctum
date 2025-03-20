@@ -20,19 +20,15 @@ class DetalleVentaService
         return $this->detalleVentaRepository->getAll();
     }
 
-    public function getById($id)
+    public function find($id)
     {
-        return $this->detalleVentaRepository->getById($id);
+        return $this->detalleVentaRepository->find($id);
     }
 
     public function create($data)
     {
-        //try {
-            $data['subtotal'] = $data['precio_asignado'] * $data['cantidad'];
-            return $this->detalleVentaRepository->create($data);
-        //} catch (Exception $e) {
-        //    throw new Exception("Error al crear el detalle de venta: " . $e->getMessage());
-        //}
+        //$data['subtotal'] = $data['cantidad'] * $data['precio_asignado'];
+        return $this->detalleVentaRepository->create($data);
     }
 
     public function add_aumentar($id)
@@ -50,37 +46,9 @@ class DetalleVentaService
         return $this->detalleVentaRepository->delete($id);
     }
 
-
-    public function update($id, array $data)
-    {
-        try {
-            return $this->detalleVentaRepository->update($id, $data);
-        } catch (ModelNotFoundException $e) {
-            throw new ModelNotFoundException("Detalle de venta no encontrado.");
-        } catch (Exception $e) {
-            throw new Exception("Error al actualizar el detalle de venta: " . $e->getMessage());
-        }
+    public function update($id, $data)
+    { 
+        return $this->detalleVentaRepository->update($id, $data);  
     }
 
-    public function delete($id)
-    {
-        try {
-            return $this->detalleVentaRepository->delete($id);
-        } catch (ModelNotFoundException $e) {
-            throw new ModelNotFoundException("Detalle de venta no encontrado.");
-        } catch (Exception $e) {
-            throw new Exception("Error al eliminar el detalle de venta: " . $e->getMessage());
-        }
-    }
-
-    public function restore($id)
-    {
-        try {
-            return $this->detalleVentaRepository->restore($id);
-        } catch (ModelNotFoundException $e) {
-            throw new ModelNotFoundException("Detalle de venta no encontrado.");
-        } catch (Exception $e) {
-            throw new Exception("Error al restaurar el detalle de venta: " . $e->getMessage());
-        }
-    }
 }

@@ -21,43 +21,30 @@ class DetalleVentaController extends Controller
     public function add(StoreDetalleVentaRequest $request): JsonResponse
     {
         $detalle = $this->detalleVentaService->create($request->validated());
-        return response()->json(new DetalleVentaResource($detalle), 201);
+        return response()->json(['status'=> $detalle ,'message' => 'producto añadido.'], 201);
     }
 
     public function destroy($id): JsonResponse
     {
-        $this->detalleVentaService->delete_detalle($id);
-        return response()->json(['message' => 'Detalle de venta eliminado.'], 200);
+        $detalle = $this->detalleVentaService->delete_detalle($id);
+        return response()->json(['status'=> $detalle ,'message' => 'Detalle de venta eliminado.'], 200);
     }
 
     public function add_aumentar($id): JsonResponse
     {
         $detalle = $this->detalleVentaService->add_aumentar($id);
-        if($detalle <= 0){
-           return $this->destroy($id);
-        }
-        return response()->json(new DetalleVentaResource($detalle), 200);
+        return response()->json(['status' => $detalle], 200);
     }
 
     public function add_restar($id): JsonResponse
     {
         $detalle = $this->detalleVentaService->add_restar($id);
-        if($detalle <= 0){
-            return $this->destroy($id);
-        }
-        return response()->json(new DetalleVentaResource($detalle), 200);
+        return response()->json(['status' => $detalle], 200);
     }
 
     public function update_cantidad(UpdateDetalleVentaRequest $request,$id): JsonResponse
     {
         $detalle = $this->detalleVentaService->update($id, $request->validated());
-        return response()->json(new DetalleVentaResource($detalle), 200);
+        return response()->json(['status' => $detalle], 200);
     }
-
-    public function update(UpdateDetalleVentaRequest $request, $id): JsonResponse
-    {
-        $detalle = $this->detalleVentaService->update($id, $request->validated());
-        return response()->json(new DetalleVentaResource($detalle), 200);
-    }
-
 }

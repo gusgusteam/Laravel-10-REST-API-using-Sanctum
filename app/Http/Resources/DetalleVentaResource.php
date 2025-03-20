@@ -10,8 +10,8 @@ class DetalleVentaResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'nota_venta' => new NotaVentaResource($this->whenLoaded('notaVenta')),
-            'producto_envase' => new ProductoEnvaseResource($this->whenLoaded('productoEnvase')),
+            'nota_venta_id' => $this->nota_venta_id,
+            'producto_envase_id' => $this->producto_envase_id,
             'precio_asignado' => $this->precio_asignado,
             'cantidad' => $this->cantidad,
             'subtotal' => $this->subtotal,
@@ -19,6 +19,8 @@ class DetalleVentaResource extends JsonResource
             'dosis_comercial' => $this->dosis_comercial,
             'observacion' => $this->observacion,
             'estado' => $this->estado,
+             //'nota_venta' => new NotaVentaResource($this->whenLoaded('notaVenta')),
+            //'producto_envase' => new ProductoEnvaseResource($this->whenLoaded('productoEnvase')),
         ];
     }
 }

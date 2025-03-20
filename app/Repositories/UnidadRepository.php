@@ -6,6 +6,20 @@ use App\Models\Unidad;
 
 class UnidadRepository
 {
+    public function AllPaginated(array $filters, int $perPage)
+    {
+        $query = Unidad::query();
+        // Aplicar filtros si existen
+        if (!empty($filters['nombre'])) {
+            $query->where('nombre', 'like', '%' . $filters['nombre'] . '%');
+        }
+        if (!empty($filters['nombre_corto'])) {
+            $query->where('nombre_corto','like', '%' .$filters['nombre_corto']. '%');
+        }
+
+        // Retornar los resultados paginados
+        return $query->paginate($perPage);
+    }
     public function find($id)
     {
         return Unidad::findOrFail($id);

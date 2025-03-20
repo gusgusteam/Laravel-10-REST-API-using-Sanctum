@@ -23,6 +23,10 @@ class ProductoEnvase extends Model
         return $this->belongsTo(Unidad::class, 'unidad_id');
     }
 
+    public function detallesVenta()
+    {
+        return $this->hasMany(DetalleVenta::class, 'producto_envase_id');
+    }
 
     protected $casts = [
         'estado' => 'boolean',

@@ -13,6 +13,11 @@ class UnidadService
         $this->unidadRepository = $unidadRepository;
     }
 
+    public function getAllPaginated($filters, $perPage)
+    {
+        return $this->unidadRepository->AllPaginated($filters, $perPage);
+    }
+
     public function getAll()
     {
         return $this->unidadRepository->all();

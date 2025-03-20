@@ -6,11 +6,11 @@ use Illuminate\Support\Facades\Route;
 //use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\ModuloAuth\AuthController;
 
-use App\Http\Controllers\API\UsuarioController;
+//use App\Http\Controllers\API\UsuarioController;
 //use App\Http\Controllers\API\ProductoController;
 use App\Http\Controllers\API\ModuloProducto\CategoriaController;
 use App\Http\Controllers\API\ModuloProducto\UnidadController;
-use App\Http\Controllers\API\EnvaseController;
+//use App\Http\Controllers\API\EnvaseController;
 use App\Http\Controllers\API\ModuloProducto\TipoProductoController;
 use App\Http\Controllers\API\ModuloProducto\ProductoController;
 use App\Http\Controllers\API\ModuloProducto\ProductoEnvaseController;
@@ -22,6 +22,7 @@ use App\Http\Controllers\API\administracion\AdminController;
 use App\Http\Controllers\API\administracion\UserController;
 use App\Http\Controllers\API\ModuloVenta\ClienteController;
 use App\Http\Controllers\API\ModuloVenta\CultivoController;
+use App\Http\Controllers\API\ModuloVenta\DetalleVentaController;
 use App\Http\Controllers\API\ModuloVenta\GestionController;
 use App\Http\Controllers\API\ModuloVenta\NotaVentaController;
 
@@ -54,12 +55,10 @@ Route::middleware('auth:sanctum')->controller(PermissionController::class)->grou
     Route::get('permissions/index','index');
 });
 
-
-
 Route::middleware('auth:sanctum')->controller(UnidadController::class)->group(function (){
     Route::post('unidades/store','store');
     Route::post('unidades/update/{id}','update');
-    Route::get('unidades/index','index');
+    Route::post('unidades/index','index');
     Route::get('unidades/show/{id}','show');
     Route::get('unidades/destroy/{id}','destroy');
     Route::get('unidades/restore/{id}','restore');  
@@ -136,10 +135,18 @@ Route::middleware('auth:sanctum')->controller(ClienteController::class)->group(f
 Route::middleware('auth:sanctum')->controller(NotaVentaController::class)->group(function (){
     Route::post('nota_venta/store','store');
     Route::post('nota_venta/update/{id}','update');
+    Route::post('nota_venta/anular_nota','anular_nota');
     Route::get('nota_venta/index','index');
     Route::get('nota_venta/show/{id}','show');
-    Route::get('nota_venta/destroy/{id}','destroy');
-    Route::get('nota_venta/restore/{id}','restore');  
+    Route::get('nota_venta/firma/{id}','completar_firma');
+});
+
+Route::middleware('auth:sanctum')->controller(DetalleVentaController::class)->group(function (){
+    Route::post('detalle_venta/add','add');
+    Route::post('detalle_venta/delete/{id}','destroy');
+    Route::post('detalle_venta/update/{id}','update_cantidad');
+    Route::get('detalle_venta/add_aumentar/{id}','add_aumentar');
+    Route::get('detalle_venta/add_restar/{id}','add_restar'); 
 });
 
 

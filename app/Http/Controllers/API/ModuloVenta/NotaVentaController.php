@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API\ModuloVenta;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\NotaVenta\StoreNotaVentaRequest;
 use App\Http\Requests\NotaVenta\UpdateNotaVentaRequest;
+use App\Http\Requests\NotaVenta\AnularNotaVentaRequest;
 use App\Http\Resources\NotaVentaResource;
 use App\Services\NotaVentaService;
 use Illuminate\Http\JsonResponse;
@@ -40,18 +41,20 @@ class NotaVentaController extends Controller
     public function update(UpdateNotaVentaRequest $request, $id)
     {
         $notaVenta = $this->notaVentaService->update($id, $request->validated());
-        return  response()->json(new NotaVentaResource($notaVenta), 200);
+        return response()->json(['status' => $notaVenta], 200);
+        //return  response()->json(new NotaVentaResource($notaVenta), 200);
     }
 
-    public function destroy($id)
+    public function anular_nota(AnularNotaVentaRequest $request)
     {
-        $this->notaVentaService->destroy($id);
-        return response()->json(['message' => 'Nota de venta eliminada correctamente'], 200);
+        $notaVenta = $this->notaVentaService->anular($request->validated());
+        return response()->json(['status' => $notaVenta], 200);
     }
-
-    public function restore($id): JsonResponse
+    
+    public function completar_firma($id): JsonResponse
     {
-        $notaVenta = $this->notaVentaService->restore($id);
-        return  response()->json(new NotaVentaResource($notaVenta), 200);
+        $notaVenta = $this->notaVentaService->firma_completar($id);
+        return response()->json(['status' => $notaVenta], 200);
     }
+    
 }

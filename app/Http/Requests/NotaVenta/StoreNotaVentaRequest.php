@@ -23,7 +23,7 @@ class StoreNotaVentaRequest extends FormRequest
             //'monto_total' => 'numeric|min:0',
             'lugar' => 'nullable|string|max:255',
             'recibido' => 'nullable|string|max:255',
-            //'venta_credito' => 'boolean',
+            'venta_credito' => 'required|boolean',
             //'estado' => 'boolean',
         ];
     }
@@ -48,6 +48,7 @@ class StoreNotaVentaRequest extends FormRequest
             'monto_total.min' => 'El monto total debe ser mayor o igual a 0.',
             'lugar.string' => 'El lugar debe ser una cadena de texto.',
             'recibido.string' => 'El recibido debe ser una cadena de texto.',
+            'venta_credito.required' => 'El tipo de venta es requerido credito o contado',
             'venta_credito.boolean' => 'El valor de venta a crédito debe ser 0 o 1.',
             'estado.boolean' => 'El estado debe ser 0 o 1.',
         ];

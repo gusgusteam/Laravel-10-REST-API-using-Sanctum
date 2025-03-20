@@ -8,57 +8,57 @@ class DetalleVentaRepository
 {
     public function getAll()
     {
-        return DetalleVenta::with(['notaVenta', 'productoEnvase'])->get();
+        return DetalleVenta::all();
     }
 
-    public function getById($id)
+    public function find($id)
     {
-        return DetalleVenta::with(['notaVenta', 'productoEnvase'])->findOrFail($id);
+        return DetalleVenta::findOrFail($id);
     }
 
     public function create(array $data)
     {
-        return DetalleVenta::create($data);
+        $detalleVenta = new DetalleVenta($data);
+        if (!$detalleVenta->save()) {
+            return false;
+        }
+        return true;
     }
 
     public function aumentar_producto($id)
     {
-        $detalleVenta = $this->getById($id);
+        $detalleVenta = $this->find($id);
         $detalleVenta['cantidad'] += 1;
-        $detalleVenta->update();
-        return $detalleVenta['cantidad'];
+        if ($detalleVenta->update()) {
+            return true;
+        }
+        return false;
     }
     public function restar_producto($id)
     {
-        $detalleVenta = $this->getById($id);
+        $detalleVenta = $this->find($id);
         $detalleVenta['cantidad'] -= 1;
-        $detalleVenta->update();
-        return $detalleVenta['cantidad'];
+        if ($detalleVenta->update()) {
+            return true;
+        }
+        return false;
     }
 
     public function delete($id)
     {
-        $detalleVenta = $this->getById($id);
-        $detalleVenta->delete();
-        return true;
+        $detalleVenta = $this->find($id);
+        if ($detalleVenta->delete()) {
+            return true;
+        }
+        return false;
     }
     
     public function update($id, array $data)
     {
-        $detalleVenta = DetalleVenta::findOrFail($id);
-        $detalleVenta->update($data);
-        return $detalleVenta;
-    }
-
-    //public function delete($id)
-    //{
-    //    $detalleVenta = DetalleVenta::findOrFail($id);
-    //    $detalleVenta->update(['estado' => 0]); // Inactivar en lugar de eliminar
-    //}
-
-    public function restore($id)
-    {
-        $detalleVenta = DetalleVenta::findOrFail($id);
-        $detalleVenta->update(['estado' => 1]); // Restaurar a activo
+        $detalleVenta = $this->find($id);
+        if ($detalleVenta->update($data)) {
+            return true;
+        }
+        return false;
     }
 }
