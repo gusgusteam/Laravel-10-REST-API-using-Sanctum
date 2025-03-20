@@ -8,8 +8,10 @@ class AssignPermissionRequest extends FormRequest
 {
     public function rules(): array
     {
+        //$id = $this->route('id_rol'); 
         return [
             'permission' => 'required|string|exists:permissions,name',
+           // 'rol' => 'required|exists:roles,id',
         ];
     }
 

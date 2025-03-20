@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\API\administracion;
+namespace App\Http\Controllers\API\ModuloAdministracion;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Permission\StorePermissionRequest;

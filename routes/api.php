@@ -15,11 +15,11 @@ use App\Http\Controllers\API\ModuloProducto\TipoProductoController;
 use App\Http\Controllers\API\ModuloProducto\ProductoController;
 use App\Http\Controllers\API\ModuloProducto\ProductoEnvaseController;
 
-use App\Http\Controllers\API\administracion\RoleController;
-use App\Http\Controllers\API\administracion\PermissionController;
+use App\Http\Controllers\API\ModuloAdministracion\RoleController;
+use App\Http\Controllers\API\ModuloAdministracion\PermissionController;
 
-use App\Http\Controllers\API\administracion\AdminController;
-use App\Http\Controllers\API\administracion\UserController;
+use App\Http\Controllers\API\ModuloAdministracion\AdminController;
+use App\Http\Controllers\API\ModuloAdministracion\UserController;
 use App\Http\Controllers\API\ModuloVenta\ClienteController;
 use App\Http\Controllers\API\ModuloVenta\CultivoController;
 use App\Http\Controllers\API\ModuloVenta\DetalleVentaController;
