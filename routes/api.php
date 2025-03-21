@@ -35,7 +35,7 @@ Route::middleware('auth:sanctum')->controller(UserController::class)->group(func
     Route::get('users/restore/{id}','restore');  
 });
 
-Route::middleware('auth:sanctum')->controller(AdminController::class)->group(function (){
+Route::middleware('auth:sanctum','check.authenticated')->controller(AdminController::class)->group(function (){
     Route::post('admin/roles/{id_rol}/assign-permission','assignPermission');
     Route::post('admin/roles/{id_rol}/remove-permission','removePermission');
     Route::post('admin/users/{id_user}/assign-role','assignRole');
@@ -43,13 +43,13 @@ Route::middleware('auth:sanctum')->controller(AdminController::class)->group(fun
     Route::get('admin/roles/users','usersByRole');
 });
 
-Route::middleware('auth:sanctum')->controller(RoleController::class)->group(function (){
+Route::middleware('auth:sanctum','check.authenticated')->controller(RoleController::class)->group(function (){
     Route::post('roles/store','store');
     Route::post('roles/update/{id}','update');
     Route::get('roles/index','index');
 });
 
-Route::middleware('auth:sanctum')->controller(PermissionController::class)->group(function (){
+Route::middleware('auth:sanctum','check.authenticated')->controller(PermissionController::class)->group(function (){
     Route::post('permissions/store','store');
     //Route::post('permissions/update/{id}','update');
     Route::get('permissions/index','index');
@@ -153,9 +153,9 @@ Route::middleware('auth:sanctum')->controller(DetalleVentaController::class)->gr
 //Modulo Auth
 
 Route::post('login', [AuthController::class, 'login']);
-Route::post('logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
-Route::get('profile', [AuthController::class, 'profile'])->middleware('auth:sanctum');
-Route::put('update-password', [AuthController::class, 'updatePassword'])->middleware('auth:sanctum');
+Route::post('logout', [AuthController::class, 'logout'])->middleware('auth:sanctum','check.authenticated');
+Route::get('profile', [AuthController::class, 'profile'])->middleware('auth:sanctum','check.authenticated');
+Route::put('update-password', [AuthController::class, 'updatePassword'])->middleware('auth:sanctum','check.authenticated');
 
 //////////
 
