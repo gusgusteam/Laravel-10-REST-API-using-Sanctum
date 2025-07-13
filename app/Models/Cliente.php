@@ -10,7 +10,7 @@ class Cliente extends Model
     use HasFactory;
     protected $table = 'clientes';
 
-    protected $fillable = ['codigo', 'nombre', 'paterno', 'materno', 'ci', 'direccion', 'telefono', 'estado'];
+    protected $fillable = ['image','codigo', 'nombre', 'paterno', 'materno', 'ci', 'direccion', 'telefono', 'estado'];
 
     protected static function boot()
     {

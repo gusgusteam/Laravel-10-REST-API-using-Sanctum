@@ -14,10 +14,6 @@ return new class extends Migration
             $table->string('nombre');
             $table->text('descripcion')->nullable();
             $table->string('dosis')->nullable();
-            $table->decimal('precio_estimado', 10, 2);
-            $table->decimal('margen_minimo', 10, 2);
-            $table->decimal('margen_standar', 10, 2);
-            $table->decimal('margen_maximo', 10, 2);
             $table->boolean('estado')->default(1); // 1 = activo, 0 = inactivo
             $table->foreignId('categoria_id')->constrained('categorias')->onDelete('cascade');
             $table->foreignId('tipo_producto_id')->constrained('tipo_productos')->onDelete('cascade');

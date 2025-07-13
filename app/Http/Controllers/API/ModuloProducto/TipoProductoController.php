@@ -7,6 +7,7 @@ use App\Http\Requests\TipoProducto\StoreTipoProductoRequest;
 use App\Http\Requests\TipoProducto\UpdateTipoProductoRequest;
 use App\Http\Resources\TipoProductoResource;
 use App\Services\TipoProductoService;
+use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 
 class TipoProductoController extends Controller
@@ -18,10 +19,18 @@ class TipoProductoController extends Controller
         $this->tipoProductoService = $tipoProductoService;
     }
 
-    public function index(): JsonResponse
+    public function index(Request $request): JsonResponse
     {
-        $tipos = $this->tipoProductoService->getAll();
-        return response()->json(TipoProductoResource::collection($tipos), 200);
+       // $categorias = $this->categoriaService->getAllPaginated();
+        $filters = $request->only(['nombre']);
+        $perPage = $request->input('per_page', 10);
+
+        $sortField = $request->input('sortField', 'id'); // Campo por defecto
+        $sortOrder = $request->input('sortOrder', 'asc'); // Orden por defecto
+
+        $categorias = $this->tipoProductoService->getAllPaginated($filters,$perPage,$sortField,$sortOrder);
+        
+        return response()->json($categorias, 200);
     }
 
     public function store(StoreTipoProductoRequest $request): JsonResponse

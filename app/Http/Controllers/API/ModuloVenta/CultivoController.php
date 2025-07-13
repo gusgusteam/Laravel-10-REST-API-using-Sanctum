@@ -7,6 +7,7 @@ use App\Http\Requests\Cultivo\StoreCultivoRequest;
 use App\Http\Requests\Cultivo\UpdateCultivoRequest;
 use App\Http\Resources\CultivoResource;
 use App\Services\CultivoService;
+use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 
 class CultivoController extends Controller
@@ -18,10 +19,17 @@ class CultivoController extends Controller
         $this->cultivoService = $cultivoService;
     }
 
-    public function index(): JsonResponse
+    public function index(Request $request): JsonResponse
     {
-        $cultivos = $this->cultivoService->getAll();
-        return response()->json(CultivoResource::collection($cultivos), 200);
+        $filters = $request->only(['nombre','estado']);
+        $perPage = $request->input('per_page', 10);
+
+        $sortField = $request->input('sortField', 'id'); // Campo por defecto
+        $sortOrder = $request->input('sortOrder', 'asc'); // Orden por defecto
+
+        $cultivos = $this->cultivoService->getAllPaginated($filters,$perPage,$sortField,$sortOrder);
+        
+        return response()->json($cultivos, 200);
     }
 
     public function store(StoreCultivoRequest $request): JsonResponse

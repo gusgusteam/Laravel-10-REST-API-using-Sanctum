@@ -13,6 +13,11 @@ class GestionService
         $this->gestionRepository = $gestionRepository;
     }
 
+    public function getAllPaginated($filters,$perPage,$sortField,$sortOrder)
+    {
+        return $this->gestionRepository->AllPaginated($filters,$perPage,$sortField,$sortOrder);
+    }
+
     public function getAll()
     {
         return $this->gestionRepository->getAll();

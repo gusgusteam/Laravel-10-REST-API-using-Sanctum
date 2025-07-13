@@ -15,6 +15,16 @@ class NotaVentaService
         $this->notaVentaRepository = $notaVentaRepository;
     }
 
+    public function getAllPaginated($filters,$perPage,$sortField,$sortOrder)
+    {
+        return $this->notaVentaRepository->AllPaginated($filters,$perPage,$sortField,$sortOrder);
+    }
+
+    public function getAllDetallesNotaVenta($id_NotaVenta)
+    {
+        return $this->notaVentaRepository->detallesNotaVenta($id_NotaVenta);
+    }
+
     public function getAll()
     {
         return $this->notaVentaRepository->all();

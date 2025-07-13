@@ -11,6 +11,24 @@ class GestionRepository
         return Gestion::all();
     }
 
+    public function AllPaginated(array $filters, int $perPage , string $sortField, string $sortOrder)
+    {
+        $query = Gestion::query();
+         // Filtrar por nombre
+        if (!empty($filters['anio'])) {
+            $query->where('anio', 'LIKE', '%' . $filters['anio'] . '%');
+        }
+        if (!empty($filters['nombre_campania'])) {
+            $query->orWhere('nombre_campania', 'LIKE', '%' . $filters['nombre_campania'] . '%');
+        }
+        if(!empty($filters['estado'])){
+            $query->where('estado', '=',$filters['estado']);
+        }
+        // Aplicar ordenación
+        $query->orderBy($sortField, $sortOrder === 'desc' ? 'desc' : 'asc');
+        return $query->paginate($perPage);
+    }
+
     public function create(array $data)
     {
         return Gestion::create($data);

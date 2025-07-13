@@ -14,12 +14,13 @@ return new class extends Migration
         Schema::create('clientes', function (Blueprint $table) {
             $table->id();
             $table->string('codigo', 4)->unique();
+            $table->string('image')->nullable();
             $table->string('nombre');
             $table->string('paterno');
             $table->string('materno');
-            $table->string('ci')->unique();
+            $table->string('ci',15)->unique();
             $table->string('direccion')->nullable();
-            $table->string('telefono')->nullable();
+            $table->string('telefono',15)->nullable();
             $table->boolean('estado')->default(1);
             $table->timestamps();
         });

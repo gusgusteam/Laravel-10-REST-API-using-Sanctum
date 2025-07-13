@@ -7,6 +7,7 @@ use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Requests\Auth\UpdatePasswordRequest;
 use App\Http\Requests\Auth\ForgotPasswordRequest;
 use App\Http\Requests\Auth\ResetPasswordRequest;
+use App\Http\Requests\Auth\UpdateRequest;
 use App\Services\AuthService;
 use App\Http\Resources\UserResource;
 use Illuminate\Http\JsonResponse;
@@ -40,7 +41,7 @@ class AuthController extends Controller
 
     public function updatePassword(UpdatePasswordRequest $request): JsonResponse
     {
-        $response = $this->authService->updatePassword($request);
+        $response = $this->authService->updatePassword($request->validated());
         return response()->json($response, 200);
     }
 
@@ -53,6 +54,12 @@ class AuthController extends Controller
     public function resetPassword(ResetPasswordRequest $request): JsonResponse
     {
         $response = $this->authService->resetPassword($request);
+        return response()->json($response, 200);
+    }
+
+    public function update(UpdateRequest $request): JsonResponse
+    {
+        $response = $this->authService->update($request->validated());
         return response()->json($response, 200);
     }
 }

@@ -13,6 +13,11 @@ class TipoProductoService
         $this->tipoProductoRepository = $tipoProductoRepository;
     }
 
+    public function getAllPaginated($filters,$perPage,$sortField,$sortOrder)
+    {
+        return $this->tipoProductoRepository->AllPaginated($filters,$perPage,$sortField,$sortOrder);
+    }
+
     public function getAll()
     {
         return $this->tipoProductoRepository->all();

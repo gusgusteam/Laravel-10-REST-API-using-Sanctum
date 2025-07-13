@@ -13,8 +13,14 @@ class ProductoEnvaseService
         $this->productoEnvaseRepository = $productoEnvaseRepository;
     }
 
+    public function getAllPaginated($filters,$perPage,$sortField,$sortOrder)
+    {
+        return $this->productoEnvaseRepository->AllPaginated($filters,$perPage,$sortField,$sortOrder);
+    }
+
     public function store(array $data)
     {
+
         return $this->productoEnvaseRepository->create($data);
     }
 
@@ -41,5 +47,10 @@ class ProductoEnvaseService
     public function restore($id)
     {
         return $this->productoEnvaseRepository->restore($id);
+    }
+
+    public function getInventario($filters,$perPage,$sortField,$sortOrder)
+    {
+        return $this->productoEnvaseRepository->inventario($filters,$perPage,$sortField,$sortOrder);
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Models\Cliente;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -23,6 +24,10 @@ class NotaVentaResource extends JsonResource
             'recibido' => $this->recibido,
             'venta_credito' => $this->venta_credito,
             'estado' => $this->estado,
+            'cliente' => $this->whenLoaded('cliente'),
+            'user' => $this->whenLoaded('user'),
+            'gestion' => $this->whenLoaded('gestion'),
+            'cultivo' => $this->whenLoaded('cultivo')
            // 'created_at' => $this->created_at,
            // 'updated_at' => $this->updated_at,
         ];

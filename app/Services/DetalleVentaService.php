@@ -15,9 +15,9 @@ class DetalleVentaService
         $this->detalleVentaRepository = $detalleVentaRepository;
     }
 
-    public function getAll()
+    public function getAll($id_NotaVenta)
     {
-        return $this->detalleVentaRepository->getAll();
+        return $this->detalleVentaRepository->getAll($id_NotaVenta);
     }
 
     public function find($id)
@@ -41,9 +41,9 @@ class DetalleVentaService
         return $this->detalleVentaRepository->restar_producto($id);
     }
 
-    public function delete_detalle($id)
+    public function delete_detalle($data)
     {
-        return $this->detalleVentaRepository->delete($id);
+        return $this->detalleVentaRepository->delete($data);
     }
 
     public function update($id, $data)

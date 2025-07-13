@@ -17,8 +17,15 @@ class UpdateProductoEnvaseRequest extends FormRequest
   
     public function rules(): array
     {
+        //return (new StoreProductoEnvaseRequest())->rules();
         return [
+            'codigo' => 'nullable|string',
             'cantidad' => 'required|integer|min:1',
+            'precio_estimado' => 'required|numeric',
+            'margen_minimo' => 'required|numeric',
+            'margen_standar' => 'required|numeric',
+            'margen_maximo' => 'required|numeric',
+            'image' => 'nullable|string',
         ];
     }
 

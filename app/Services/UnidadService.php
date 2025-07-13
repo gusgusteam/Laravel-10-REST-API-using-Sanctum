@@ -13,9 +13,9 @@ class UnidadService
         $this->unidadRepository = $unidadRepository;
     }
 
-    public function getAllPaginated($filters, $perPage)
+    public function getAllPaginated($filters,$perPage,$sortField,$sortOrder)
     {
-        return $this->unidadRepository->AllPaginated($filters, $perPage);
+        return $this->unidadRepository->AllPaginated($filters,$perPage,$sortField,$sortOrder);
     }
 
     public function getAll()

@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Unidad;
 
+use App\Models\Unidad;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -29,6 +30,18 @@ class UpdateUnidadRequest extends FormRequest
     public function authorize(): bool
     {
         return true;
+    }
+
+    public function withValidator($validator)
+    {
+        $CategoriaId = $this->route('id');
+        $categoria = Unidad::find($CategoriaId);
+
+        if ($categoria && $categoria->estado == 0) {
+            $validator->after(function ($validator) {
+                $validator->errors()->add('estado', 'No se puede actualizar una unidad inactiva.');
+            });
+        }
     }
 }
 

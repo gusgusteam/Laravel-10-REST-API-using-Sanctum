@@ -21,6 +21,7 @@ ng g module pages/ModuloAuth/auth --routing
 ng g service pages/ModuloAuth/auth/services/auth
 ng g component pages/ModuloAuth/auth/components/auth-login
 ng g component pages/ModuloAuth/auth/components/auth-profile
+ng g component pages/ModuloAuth/auth/components/auth-update-profile
 ng g component pages/ModuloAuth/auth/components/auth-update-password
 ng g service pages/ModuloAuth/auth/services/auth
 

@@ -7,6 +7,7 @@ use App\Http\Requests\Producto\StoreProductoRequest;
 use App\Http\Requests\Producto\UpdateProductoRequest;
 use App\Services\ProductoService;
 use App\Http\Resources\ProductoResource;
+use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 
 class ProductoController extends Controller
@@ -18,10 +19,17 @@ class ProductoController extends Controller
         $this->productoService = $productoService;
     }
 
-    public function index(): JsonResponse
+    public function index(Request $request): JsonResponse
     {
-        $productos = $this->productoService->getAll();
-        return response()->json(ProductoResource::collection($productos), 200);
+        $filters = $request->only(['nombre','descripcion','categoria','tipoproducto']);
+        $perPage = $request->input('per_page', 10);
+
+        $sortField = $request->input('sortField', 'id'); // Campo por defecto
+        $sortOrder = $request->input('sortOrder', 'asc'); // Orden por defecto
+
+        $categorias = $this->productoService->getAllPaginated($filters,$perPage,$sortField,$sortOrder);
+        
+        return response()->json($categorias, 200);
     }
 
     public function store(StoreProductoRequest $request): JsonResponse

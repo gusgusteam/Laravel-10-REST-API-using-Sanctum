@@ -6,6 +6,21 @@ use App\Models\Categoria;
 
 class CategoriaRepository
 {
+    public function AllPaginated(array $filters, int $perPage , string $sortField, string $sortOrder)
+    {
+        $query = Categoria::query();
+         // Filtrar por nombre
+        if (!empty($filters['nombre'])) {
+            $query->where('nombre', 'LIKE', '%' . $filters['nombre'] . '%');
+        }
+        if(!empty($filters['estado'])){
+            $query->orWhere('estado', '=',$filters['estado']);
+        }
+        // Aplicar ordenación
+        $query->orderBy($sortField, $sortOrder === 'desc' ? 'desc' : 'asc');
+        return $query->paginate($perPage);
+    }
+
     public function find($id)
     {
         return Categoria::findOrFail($id);

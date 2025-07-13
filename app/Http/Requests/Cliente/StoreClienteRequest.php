@@ -21,11 +21,12 @@ class StoreClienteRequest extends FormRequest
             'ci' => [
                  'required',
                  'string',
-                 'max:20',
+                 'max:15',
                  Rule::unique('clientes')
             ],
             'direccion' => 'nullable|string|max:255',
-            'telefono' => 'nullable|string|max:20',
+            'telefono' => 'nullable|string|max:15',
+            'image' => 'nullable|string',
         ];
     }
 
@@ -54,6 +55,7 @@ class StoreClienteRequest extends FormRequest
     
             'telefono.string' => 'El teléfono debe ser una cadena de texto.',
             'telefono.max' => 'El teléfono no debe superar los 20 caracteres.',
+            'image.string' => 'El campo de la imagen debe ser una cadena de texto b64.',
         ];
     }
 }

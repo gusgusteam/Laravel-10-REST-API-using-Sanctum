@@ -25,10 +25,10 @@ class AuthService
         $credentials = $request->only('email', 'password');
         $user = $this->authRepository->login($credentials);
         if (!$user) {
-            return ['user' => $user,'token' => null,'messaje' => 'credenciales incorrectas'];
+            return ['user' => $user,'token' => null,'message' => 'credenciales incorrectas'];
         }
         $token = $user->createToken(config('app.name'))->plainTextToken;
-        return ['user' => $user,'token' => $token,'messaje' => 'usuario existente'];
+        return ['user' => $user,'token' => $token,'message' => 'usuario existente'];
         
     }
 
@@ -44,20 +44,14 @@ class AuthService
         return $user;
     }
 
-    public function updatePassword(UpdatePasswordRequest $request)
+    public function updatePassword($data)
     {
-        $user = $this->authRepository->getAuthenticatedUser();
-        $updated = $this->authRepository->updatePassword(
+        $user = $this->profile();
+        return $this->authRepository->updatePassword(
             $user, 
-            $request->current_password, 
-            $request->new_password
+            $data['current_password'], 
+            $data['new_password']
         );
-
-        if (!$updated) {
-            return response()->json(['message' => 'password es incorrecto.'], 400);
-        }
-
-        return response()->json(['message' => 'Password actualizado.'], 200);
     }
 
     public function forgotPassword(ForgotPasswordRequest $request)
@@ -84,5 +78,9 @@ class AuthService
         }
 
         return response()->json(['message' => 'Failed to reset password.'], 400);
+    }
+    public function update($data)
+    {
+        return $this->authRepository->update($data);
     }
 }

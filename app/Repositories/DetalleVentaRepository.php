@@ -6,7 +6,7 @@ use App\Models\DetalleVenta;
 
 class DetalleVentaRepository
 {
-    public function getAll()
+    public function getAll($id_NotaVenta)
     {
         return DetalleVenta::all();
     }
@@ -44,9 +44,9 @@ class DetalleVentaRepository
         return false;
     }
 
-    public function delete($id)
+    public function delete(array $data)
     {
-        $detalleVenta = $this->find($id);
+        $detalleVenta = $this->find($data['id']);
         if ($detalleVenta->delete()) {
             return true;
         }

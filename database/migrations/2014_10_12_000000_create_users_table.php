@@ -23,6 +23,7 @@ return new class extends Migration
            // $table->tinyInteger('edad');
            // $table->tinyInteger('estado')->default(1);
            // $table->tinyInteger('superAdmin')->default(0);
+           $table->string('image')->nullable();
            $table->boolean('estado')->default(1);
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');

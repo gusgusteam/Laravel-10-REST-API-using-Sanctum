@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\TipoProducto;
 
+use App\Models\TipoProducto;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -29,6 +30,18 @@ class UpdateTipoProductoRequest extends FormRequest
     public function authorize(): bool
     {
         return true;
+    }
+
+    public function withValidator($validator)
+    {
+        $TipoProductoId = $this->route('id');
+        $TipoProducto = TipoProducto::find($TipoProductoId);
+
+        if ($TipoProducto && $TipoProducto->estado == 0) {
+            $validator->after(function ($validator) {
+                $validator->errors()->add('estado', 'No se puede actualizar un tipo producto inactivo.');
+            });
+        }
     }
 }
 

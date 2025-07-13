@@ -13,6 +13,11 @@ class CultivoService
         $this->cultivoRepository = $cultivoRepository;
     }
 
+    public function getAllPaginated($filters,$perPage,$sortField,$sortOrder)
+    {
+        return $this->cultivoRepository->AllPaginated($filters,$perPage,$sortField,$sortOrder);
+    }
+
     public function getAll()
     {
         return $this->cultivoRepository->getAll();

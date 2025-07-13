@@ -11,6 +11,21 @@ class CultivoRepository
         return Cultivo::all();
     }
 
+    public function AllPaginated(array $filters, int $perPage , string $sortField, string $sortOrder)
+    {
+        $query = Cultivo::query();
+         // Filtrar por nombre
+        if (!empty($filters['nombre'])) {
+            $query->where('nombre', 'LIKE', '%' . $filters['nombre'] . '%');
+        }
+        if(!empty($filters['estado'])){
+            $query->where('estado', '=',$filters['estado']);
+        }
+        // Aplicar ordenación
+        $query->orderBy($sortField, $sortOrder === 'desc' ? 'desc' : 'asc');
+        return $query->paginate($perPage);
+    }
+
     public function create(array $data)
     {
         return Cultivo::create($data);

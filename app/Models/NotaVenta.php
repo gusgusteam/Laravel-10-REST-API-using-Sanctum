@@ -4,13 +4,31 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Validation\ValidationException;
 
 class NotaVenta extends Model
 {
     use HasFactory;
     protected $table = 'nota_ventas';
 
-    protected $fillable = ['codigo', 'cliente_id', 'user_id', 'gestion_id', 'cultivo_id','codigo_factura','codigo_alterno','motivo','fecha', 'monto_total', 'lugar', 'recibido','venta_credito', 'estado','firma','nota_alterna'];
+    protected $fillable = [
+        'codigo', 
+        'cliente_id', 
+        'user_id', 
+        'gestion_id', 
+        'cultivo_id',
+        'codigo_factura',
+        'codigo_alterno',
+        'motivo',
+        'fecha', 
+        'monto_total', 
+        'lugar', 
+        'recibido',
+        'venta_credito', 
+        'estado',
+        'firma',
+        'nota_alterna'
+    ];
 
     protected $casts = [
         'venta_credito' => 'boolean',
@@ -27,7 +45,19 @@ class NotaVenta extends Model
         });
 
         static::updating(function ($notaVenta) {
-           
+            if ($notaVenta->getOriginal('nota_alterna') === true) {
+                throw ValidationException::withMessages([
+                    'nota_alterna' => ['No se puede actualizar una nota de venta cuando esta anulada.']
+                ])->status(400);
+            }
+        });
+
+        static::updating(function ($notaVenta) {
+            if ($notaVenta->isDirty('firma') && !$notaVenta->estado) {
+                throw ValidationException::withMessages([
+                    'firma' => ['No se puede firmar una nota de venta con el estado pendiente.']
+                ])->status(400);
+            }
         });
 
         static::deleting(function ($notaVenta) {
@@ -59,4 +89,12 @@ class NotaVenta extends Model
     {
         return $this->hasMany(DetalleVenta::class, 'nota_venta_id');
     }
+
+    public function PerteneceProductoEnvase($productoEnvaseId)
+    {
+        return $this->detallesVenta()
+        ->where('producto_envase_id', $productoEnvaseId)
+        ->exists();
+    }
+
 }

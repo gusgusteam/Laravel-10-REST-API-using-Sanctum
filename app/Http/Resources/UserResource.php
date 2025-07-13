@@ -11,9 +11,11 @@ class UserResource extends JsonResource
     {   
         return [
             'id' => $this->id,
+            'image' => $this->image,
             'name' => $this->name,
             'email' => $this->email,
             'estado' => $this->estado,
+            'roles' => RoleResource::collection($this->whenLoaded('roles')),
             //'created_at' => $this->created_at,
             //'updated_at' => $this->updated_at,
         ];

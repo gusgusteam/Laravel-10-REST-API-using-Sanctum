@@ -10,9 +10,14 @@ class ProductoEnvaseResource extends JsonResource
     {
         return [
             'id' => $this->id,
+            'codigo' => $this->codigo,
             'producto_id' => $this->producto_id,
             'unidad_id' => $this->unidad_id,
             'cantidad' => $this->cantidad,
+            'precio_estimado' => $this->precio_estimado,
+            'margen_minimo' => $this->margen_minimo,
+            'margen_standar' => $this->margen_standar,
+            'margen_maximo' => $this->margen_maximo,
             'estado' => $this->estado,
             // Si tienes más atributos o relaciones, puedes agregarlos aquí
             'producto' => new ProductoResource($this->whenLoaded('producto')),

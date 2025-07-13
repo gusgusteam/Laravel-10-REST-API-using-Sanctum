@@ -7,6 +7,7 @@ use App\Http\Requests\Categoria\StoreCategoriaRequest;
 use App\Http\Requests\Categoria\UpdateCategoriaRequest;
 use App\Http\Resources\CategoriaResource;
 use App\Services\CategoriaService;
+use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 
 class CategoriaController extends Controller
@@ -18,10 +19,18 @@ class CategoriaController extends Controller
         $this->categoriaService = $categoriaService;
     }
 
-    public function index(): JsonResponse
+    public function index(Request $request): JsonResponse
     {
-        $categorias = $this->categoriaService->getAll();
-        return response()->json(CategoriaResource::collection($categorias), 200);
+       // $categorias = $this->categoriaService->getAllPaginated();
+        $filters = $request->only(['nombre','estado']);
+        $perPage = $request->input('per_page', 10);
+
+        $sortField = $request->input('sortField', 'id'); // Campo por defecto
+        $sortOrder = $request->input('sortOrder', 'asc'); // Orden por defecto
+
+        $categorias = $this->categoriaService->getAllPaginated($filters,$perPage,$sortField,$sortOrder);
+        
+        return response()->json($categorias, 200);
     }
 
     public function store(StoreCategoriaRequest $request): JsonResponse

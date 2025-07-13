@@ -6,6 +6,34 @@ use App\Models\Producto;
 
 class ProductoRepository
 {
+    public function AllPaginated(array $filters, int $perPage, string $sortField, string $sortOrder)
+    {
+        $query = Producto::with(['categoria', 'tipoProducto']); // Carga relaciones
+
+        // Filtrar por nombre si se proporciona
+        if (!empty($filters['nombre'])) {
+            $query->where('nombre', 'LIKE', '%' . $filters['nombre'] . '%');
+        }
+        if (!empty($filters['descripcion'])) {
+            $query->orWhere('descripcion', 'LIKE', '%' .$filters['descripcion']. '%');
+        }
+        if (!empty($filters['categoria'])) {
+            $query->orwhereHas('categoria', function ($q) use ($filters) {
+                $q->where('nombre', 'LIKE', '%' . $filters['categoria'] . '%');
+            });
+        }
+        if (!empty($filters['tipoproducto'])) {
+            $query->orwhereHas('tipoProducto', function ($q) use ($filters) {
+                $q->where('nombre', 'LIKE', '%' . $filters['tipoproducto'] . '%');
+            });
+        }
+
+        // Aplicar ordenación
+        $query->orderBy($sortField, $sortOrder === 'desc' ? 'desc' : 'asc');
+        // Retornar con paginación
+        return $query->paginate($perPage);
+    }
+
     public function find($id)
     {
         return Producto::findOrFail($id)->load('categoria', 'tipoProducto');

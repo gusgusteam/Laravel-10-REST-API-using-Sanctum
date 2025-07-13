@@ -23,7 +23,11 @@ class UnidadController extends Controller
     {
         $filters = $request->only(['nombre', 'nombre_corto']);
         $perPage = $request->input('per_page', 10);
-        $unidades = $this->unidadService->getAllPaginated($filters, $perPage);
+
+        $sortField = $request->input('sortField', 'id'); // Campo por defecto
+        $sortOrder = $request->input('sortOrder', 'asc'); // Orden por defecto
+
+        $unidades = $this->unidadService->getAllPaginated($filters, $perPage,$sortField,$sortOrder);
         //$unidades = $this->unidadService->getAll();
         // Retorna la respuesta en formato JSON
         return response()->json($unidades, 200);

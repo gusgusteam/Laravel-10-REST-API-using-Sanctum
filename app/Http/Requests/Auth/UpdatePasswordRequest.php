@@ -6,6 +6,10 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class UpdatePasswordRequest extends FormRequest
 {
+    public function authorize()
+    {
+        return true; // Cambia esto según tu lógica de autorización
+    }
     public function rules()
     {
         return [

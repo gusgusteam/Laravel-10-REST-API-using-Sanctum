@@ -12,8 +12,12 @@ class Producto extends Model
     protected $table = 'productos';
 
     protected $fillable = [
-        'nombre', 'descripcion', 'dosis', 'precio_estimado', 'margen_minimo', 
-        'margen_standar', 'margen_maximo', 'estado', 'categoria_id', 'tipo_producto_id'
+        'nombre', 
+        'descripcion', 
+        'dosis',  
+        'estado', 
+        'categoria_id', 
+        'tipo_producto_id'
     ];
 
     public function categoria()

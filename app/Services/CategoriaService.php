@@ -13,6 +13,11 @@ class CategoriaService
         $this->categoriaRepository = $categoriaRepository;
     }
 
+    public function getAllPaginated($filters,$perPage,$sortField,$sortOrder)
+    {
+        return $this->categoriaRepository->AllPaginated($filters,$perPage,$sortField,$sortOrder);
+    }
+
     public function getAll()
     {
         return $this->categoriaRepository->all();

@@ -25,7 +25,6 @@ class UpdateClienteRequest extends FormRequest
             'max:20',
             Rule::unique('clientes')->ignore($clienteId),
         ];
-
         return $rules;
     }
 

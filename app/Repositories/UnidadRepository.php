@@ -6,18 +6,22 @@ use App\Models\Unidad;
 
 class UnidadRepository
 {
-    public function AllPaginated(array $filters, int $perPage)
+    public function AllPaginated(array $filters, int $perPage , string $sortField, string $sortOrder)
     {
         $query = Unidad::query();
-        // Aplicar filtros si existen
+         // Filtrar por nombre
         if (!empty($filters['nombre'])) {
-            $query->where('nombre', 'like', '%' . $filters['nombre'] . '%');
+            $query->where('nombre', 'LIKE', '%' . $filters['nombre'] . '%');
         }
+        // Filtrar por nombre corto
         if (!empty($filters['nombre_corto'])) {
-            $query->where('nombre_corto','like', '%' .$filters['nombre_corto']. '%');
+            $query->orWhere('nombre_corto', 'LIKE', '%' .$filters['nombre_corto']. '%');
         }
-
-        // Retornar los resultados paginados
+        if(!empty($filters['estado'])){
+            $query->where('estado', '=',$filters['estado']);
+        }
+        // Aplicar ordenación
+        $query->orderBy($sortField, $sortOrder === 'desc' ? 'desc' : 'asc');
         return $query->paginate($perPage);
     }
     public function find($id)

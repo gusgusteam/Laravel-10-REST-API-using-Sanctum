@@ -11,7 +11,18 @@ class ProductoEnvase extends Model
     protected $table = 'producto_envase';
     //public $incrementing = false;
     //protected $primaryKey = null; 
-    protected $fillable = ['producto_id', 'unidad_id', 'cantidad', 'estado'];
+    protected $fillable = [
+        'codigo',
+        'image',
+        'producto_id', 
+        'unidad_id', 
+        'cantidad', 
+        'precio_estimado', 
+        'margen_minimo', 
+        'margen_standar', 
+        'margen_maximo', 
+        'estado'
+    ];
 
     public function producto()
     {

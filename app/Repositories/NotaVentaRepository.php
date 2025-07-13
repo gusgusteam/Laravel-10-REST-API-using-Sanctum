@@ -6,6 +6,42 @@ use App\Models\NotaVenta;
 
 class NotaVentaRepository
 {
+    public function AllPaginated(array $filters, int $perPage, string $sortField, string $sortOrder)
+    {
+        $query = NotaVenta::with(['cliente', 'user', 'gestion', 'cultivo']); // Carga relaciones
+
+        // Filtrar por nombre si se proporciona
+        if (!empty($filters['fecha'])) {
+            $query->where('fecha', 'LIKE', '%' . $filters['fecha'] . '%');
+        }
+        if (!empty($filters['codigo_factura'])) {
+            $query->orWhere('codigo_factura', 'LIKE', '%' .$filters['codigo_factura']. '%');
+        }
+
+        if (!empty($filters['cliente']) && $filters['cliente'] !== 'null') { // id cliente
+            $query->whereHas('cliente', function ($q) use ($filters) {
+                $q->where('codigo', '=',$filters['cliente']);
+            });
+        }
+
+        if (!empty($filters['gestion']) && $filters['gestion'] !== 'null') { //id gestion
+            $query->whereHas('gestion', function ($q) use ($filters) {
+                $q->where('id', '=',$filters['gestion']);
+            });
+        }
+
+        // Aplicar ordenación
+        $query->orderBy($sortField, $sortOrder === 'desc' ? 'desc' : 'asc');
+        // Retornar con paginación
+        return $query->paginate($perPage);
+    }
+
+    public function detallesNotaVenta($id_NotaVenta)
+    {
+        $notaVenta = NotaVenta::with('detallesVenta.productoEnvase.producto', 'detallesVenta.productoEnvase.unidad')->findOrFail($id_NotaVenta);
+        return $notaVenta->detallesVenta;
+    }
+    
     public function all()
     {
         return NotaVenta::with(['cliente', 'user', 'gestion', 'cultivo'])->get();

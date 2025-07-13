@@ -49,3 +49,9 @@ ng g component pages/ModuloAdministracion/admin/components/admin-grupo
 ng g component pages/ModuloAdministracion/admin/components/admin-form
 ng g service pages/ModuloAdministracion/admin/services/admin
 
+# crud configuracion
+ng g module pages/ModuloAdministracion/configuracion --routing
+ng g service pages/ModuloAdministracion/configuracion/services/configuracion
+ng g component pages/ModuloAdministracion/configuracion/components/configuracion-form
+ng g service pages/ModuloAdministracion/configuracion/services/configuracion
+

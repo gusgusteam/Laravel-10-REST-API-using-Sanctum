@@ -50,4 +50,7 @@ ng g component pages/ModuloVenta/nota-venta/components/nota-venta-list-cancelada
 ng g component pages/ModuloVenta/nota-venta/components/nota-venta-form
 ng g component pages/ModuloVenta/nota-venta/components/nota-venta-detalle
 ng g component pages/ModuloVenta/nota-venta/components/nota-venta-grupo
+ng g component pages/ModuloVenta/nota-venta/components/nota-venta-add
+ng g component pages/ModuloVenta/nota-venta/components/nota-venta-estado-cliente
 ng g service pages/ModuloVenta/nota-venta/services/nota-venta
+ng g service pages/ModuloVenta/nota-venta/services/detalle-venta
